@@ -1,15 +1,21 @@
-FROM python:3
+FROM python:3-slim
 
-WORKDIR /home/did
-COPY src/* .
+# Create app directory
+WORKDIR /usr/src/app
 
 COPY requirements.txt requirements.txt
-RUN python -m pip install --upgrade pip
-RUN python -m pip install -r requirements.txt
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install -r requirements.txt
 
-RUN python -m pip list > /python_installed_packages.txt
+RUN python3 -m pip list > /python_installed_packages.txt
 
-# build timestamp
+# Bring over the main scripts
+COPY src/*.py .
+
+# build stamp
 RUN echo "Timestamp:" `date --utc` | tee /image-build-info.txt
 
-ENTRYPOINT [ "python3", "/home/did/demo_did.py" ]
+# Make sure python isn't buffered
+ENV PYTHONUNBUFFERED=1
+
+ENTRYPOINT [ "python3", "/usr/src/app/demo_did.py" ]
