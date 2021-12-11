@@ -1,0 +1,67 @@
+noCerts: true
+
+app:
+  adminEmail: zonca@sdsc.edu
+  tag: develop
+  pullPolicy: Always
+  auth: false
+  replicas: 1
+
+  ingress:
+    class: nginx
+    enabled: false
+    host: zonca.dev
+    tls:
+      enabled: true
+      clusterIssuer: letsencrypt-prod
+
+codeGen:
+  image: sslhep/servicex_code_gen_func_adl_uproot
+
+didFinder:
+  rucio:
+    enabled: false
+
+  CERNOpenData:
+    enabled: true
+
+objectStore:
+    enabled: false
+    #publicURL: pondd-minio.zonca.dev
+
+minio:
+  ingress:
+    enabled: false
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      acme.cert-manager.io/http01-edit-in-place: "true"
+    hosts:
+    - "pondd-minio.zonca.dev"
+    tls:
+    - hosts:
+      - pondd-minio.zonca.dev
+      secretName: pondd-minio-tls
+      enabled: true
+
+postgres:
+  enabled: false
+postgresql:
+  persistence:
+    enabled: true
+    storageClass: standard
+
+preflight:
+  pullPolicy: Always
+rabbitmq:
+    persistence:
+      enabled: false
+      storageClass: standard
+
+transformer:
+  autoscaler:
+    enabled: true
+    maxReplicas: 5
+
+  pullPolicy: Always
+  defaultTransformerImage: sslhep/servicex_func_adl_uproot_transformer:develop
