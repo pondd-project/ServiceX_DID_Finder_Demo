@@ -5,7 +5,7 @@
 from func_adl_servicex import ServiceXSourceUpROOT
 from servicex import ServiceXDataset
 
-sx_dataset = ServiceXDataset("demo://dataset1", backend_name='dev_uproot')
+sx_dataset = ServiceXDataset("demo://dataset1")#, backend_name='dev_uproot')
 ds = ServiceXSourceUpROOT(sx_dataset, "mini")
 
 data = ds.Select("lambda e: {'JetPT': e['jet_pt']}").AsAwkwardArray().value()
