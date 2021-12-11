@@ -1,3 +1,5 @@
+createcluster:
+	kind create cluster
 build:
 	docker build -t servicex-did-finder-demo .
 load:
@@ -10,3 +12,5 @@ forward:
 	kubectl port-forward `cat POD_NAME` 5000:5000
 test:
 	python tests/post.py
+deletecluster:
+	kind delete cluster
