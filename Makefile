@@ -13,8 +13,10 @@ load:
 	kind load docker-image servicex-did-finder-demo:latest
 
 servicex:
-	helm delete pondd-servicex
 	helm install -f values_minimal.yaml --version v1.0.17 pondd-servicex ssl-hep/servicex
+
+servicexstop:
+	helm delete pondd-servicex
 
 forward:
 	kubectl get pods --namespace default -l "app=pondd-servicex-servicex-app" -o jsonpath="{.items[0].metadata.name}" > POD_NAME
