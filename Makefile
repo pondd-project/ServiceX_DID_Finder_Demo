@@ -18,6 +18,9 @@ servicex:
 demo:
 	kubectl create -f deploy.yaml
 
+edit:
+	kubectl edit configmap pondd-servicex-flask-config
+
 forward:
 	kubectl get pods --namespace default -l "app=pondd-servicex-servicex-app" -o jsonpath="{.items[0].metadata.name}" > POD_NAME
 	kubectl port-forward `cat POD_NAME` 5000:5000
