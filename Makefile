@@ -15,8 +15,8 @@ load:
 servicex:
 	helm install -f values_minimal.yaml --version v1.0.17 pondd-servicex ssl-hep/servicex
 
-servicexstop:
-	helm delete pondd-servicex
+demo:
+	kubectl create -f deploy.yaml
 
 forward:
 	kubectl get pods --namespace default -l "app=pondd-servicex-servicex-app" -o jsonpath="{.items[0].metadata.name}" > POD_NAME
@@ -24,6 +24,9 @@ forward:
 
 test:
 	python tests/post.py
+
+servicexstop:
+	helm delete pondd-servicex
 
 deletecluster:
 	kind delete cluster
