@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 # # A Simple DID Finder
 from func_adl_servicex import ServiceXSourceUpROOT
 from servicex import ServiceXDataset
