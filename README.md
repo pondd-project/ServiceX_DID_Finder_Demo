@@ -24,4 +24,15 @@ To see how this is created see the following files in this repository:
 * `Dockerfile` - Builds the container that can run in the ServiceX environment.
 * `requirements.txt` - Contains all the packages required to run the did finder.
 
-This repository is a template repository - which makes it very    easy to start as a template.
+## Test locally with KinD
+
+* Install kind locally <https://kind.sigs.k8s.io/>
+* Launch the cluster with `make createcluster`
+* Build the Service Demo container with `make build`
+* Make it available inside the KinD cluster with `make load`
+* Install ServiceX via Helm with `make servicex`
+* Create the Service Demo deployment with `make demo`
+* Edit the servicex configuration with `make edit` and replace `cernopendata` with `demo` in `DID_FINDER_DEFAULT_SCHEME` and `VALID_DID_SCHEMES`
+* Delete the servicex and the codegen pods so that they are re-created with the new configuration
+* Setup forwarding of port 5000 locally with `make forward &`
+* Test with `make test`, you should get a request id back similar to `{'request_id': '5847d172-1681-411f-8913-5a1d57aac558'}`
