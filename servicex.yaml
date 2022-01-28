@@ -1,0 +1,4 @@
+api_endpoints:
+  - name: dev_uproot
+    endpoint: http://localhost:5000
+    type: uproot
