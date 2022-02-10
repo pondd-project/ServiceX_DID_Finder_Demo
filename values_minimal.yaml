@@ -26,10 +26,19 @@ didFinder:
     enabled: true
 
 objectStore:
-    enabled: false
+    enabled: true
     #publicURL: pondd-minio.zonca.dev
 
+    # Enable deployment of Minio Object Store with this chart
+    internal: true
+    publicURL:
+    # turn off https connections to minio, should be off if using internal
+    # minio
+    useTLS: false
+
 minio:
+  accessKey: miniouser
+  secretKey: leftfoot1
   ingress:
     enabled: false
     annotations:
